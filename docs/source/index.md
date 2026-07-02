@@ -12,6 +12,13 @@ Placeholder
 
 ## Documentation Pages
 
+### Setup
+
+```{toctree}
+:maxdepth: 1
+setup.md
+```
+
 ### Scaffold Design
 
 ```{toctree}
