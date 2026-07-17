@@ -12,6 +12,13 @@ Placeholder
 
 ## Documentation Pages
 
+### Onboarding
+
+```{toctree}
+:maxdepth: 1
+onboarding.md
+```
+
 ### Scaffold Design
 
 ```{toctree}
