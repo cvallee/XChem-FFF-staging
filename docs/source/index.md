@@ -19,11 +19,11 @@ Placeholder
 setup.md
 ```
 
-### Scaffold Design
+### Scaffold Design (Cycle 01)
 
 ```{toctree}
 :maxdepth: 1
-design.md
+Scaffold_Design.md
 ```
 
 ### Scaffold Elaboration
