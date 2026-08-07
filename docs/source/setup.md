@@ -9,7 +9,8 @@ Users should have an active DLS FedID and have setup SSH access to IRIS followin
 For access to these instructions, please contact Ben Emery (ben.emery@cmd.ox.ac.uk) or Cedric Vallee (cedric.vallee@diamond.ac.uk). 
 
 `git clone https://github.com/xchem/XChem-FFF.git`
-`git clone https://github.com/xchem/BulkDock.git`
+`git clone https://github.com/xchem/BulkDock.git` 
+`git clone https://github.com/Jnelen/openbind-rescore.git`
 
 ## Configure Bulkdock
 
@@ -35,5 +36,16 @@ python -m bulkdock create-directories
 `cd XChem-FFF` 
 `conda create -f xchem-fff_environment.yml`
 `conda create -f xchem-fragmenstein_environment.yml`
+
+
+## Configure Gnina 
+
+cd openbind-rescore/gnina/
+wget https://github.com/gnina/gnina/releases/download/v1.3.1/gnina1.3.1
+mv gnina1.3.1 gnina
+chmod +x gnina
+singularity pull --disable-cache gnina_singularity.sif oras://ghcr.io/jnelen/gnina_singularity:v1
+cd ..
+python gnina_rescore.py --help
 
 

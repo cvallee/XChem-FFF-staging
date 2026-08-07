@@ -94,4 +94,3 @@ dependencies:
       - wcwidth==0.7.0
       - xchem-fragmenstein==1.0.0
       - zipp==3.23.1
-prefix: /opt/xchem-fragalysis-2/bemery/conda/envs/xchem-fragmenstein
