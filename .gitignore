@@ -1,2 +1,6 @@
 .ipynb_checkpoints
 docs/build
+temp/*
+a71ev2az/*
+A71EV2AZ_Cycle_01.ipynb
+.vscode
