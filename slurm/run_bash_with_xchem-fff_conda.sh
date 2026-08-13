@@ -18,7 +18,6 @@ echo $CONDA_PREFIX
 
 # setup environment
 export PYTHONUSERBASE=$CONDA_PREFIX
-export PYTHONPATH=$
 export CONDA_ENVS_PATH=$CONDA_PREFIX/envs
 export CONDA_PKGS_DIRS=$CONDA_PREFIX/pkgs
 export MAMBA_ALWAYS_YES=yes
