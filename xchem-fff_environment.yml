@@ -275,4 +275,3 @@ dependencies:
       - xlrd==2.0.2
       - yattag==1.16.1
       - zipp==4.1.0
-prefix: /opt/xchem-fragalysis-2/bemery/conda/envs/xchem-fff
