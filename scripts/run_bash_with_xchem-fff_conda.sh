@@ -3,7 +3,7 @@
 #SBATCH --job-name=bash_w_conda
 
 # default
-ROOT='bemery'
+ROOT=<YOUR_ROOT_DIRECTORY>
 CONDA_ENV='xchem-fff'
 ARGS=$@
 CONDA_DIR='conda'
@@ -24,9 +24,6 @@ export MAMBA_ALWAYS_YES=yes
 export LD_LIBRARY_PATH=/usr/local/cuda/compat:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH;
 
 export PYTHONPATH=$PYTHONPATH:$HOME2/MolParse:$HOME2/HIPPO:$HOME2:$HOME2/syndirella
-
-#export MANIFOLD_API_KEY="v1:IEgBrU-Vi4r1bBTGidyEnA"
-#export MANIFOLD_API_KEY="v1:m_HbJ9dNrwlMwjbJA4wscg"
 
 # splashscreen
 echo "************************************************************************"
