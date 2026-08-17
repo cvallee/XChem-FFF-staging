@@ -44,7 +44,7 @@ bash "$HOME2/slurm/notebook.sh" -p 9500 -d <WORKDIR> -cd conda -jc "$HOME2/jupyt
 Submit the Jupyter notebook job to SLURM:
 
 ```bash
-sbatch --job-name notebook --partition main "$HOME2/slurm/notebook.sh" -p 9500 -d WORKDIR -cd conda -jc "$HOME2/jupyter_slurm" -ce py310 -ajc
+sbatch --job-name notebook --partition main "$HOME2/slurm/notebook.sh" -p 9500 -d <WORKDIR> -cd conda -jc "$HOME2/jupyter_slurm" -ce py310 -ajc
 ```
 
 ### 1d. Find the `NODELIST`
