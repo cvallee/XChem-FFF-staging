@@ -36,7 +36,7 @@ cd "$HOME2"
 Configure Jupyter. Replace `<WORKDIR>` with the name of your working directory.
 
 ```bash
-bash "$DATA/<WORKDIR>/slurm/notebook.sh" -p 9500 -d WORKDIR -cd conda -jc "$HOME2/jupyter_slurm" -ce py310 -ajc -js
+bash "$HOME2/slurm/notebook.sh" -p 9500 -d <WORKDIR> -cd conda -jc "$HOME2/jupyter_slurm" -ce py310 -ajc -js
 ```
 
 ### 1c. Submit the notebook job
