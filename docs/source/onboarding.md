@@ -144,6 +144,16 @@ source $CONDA_PREFIX/etc/profile.d/conda.sh
 conda info   # confirm base environment is active
 ```
 
+Create a conda environment (install each line at a time)
+
+```bash
+conda create --name py310 python=3.10 
+conda activate py310 
+pip install --no-cache-dir hippo-db typer black gemmi 
+conda install chemicalite=2024.05.1 pdbfixer git 
+python -c "import mrich; mrich.patch_rich_jupyter_margins()"
+```
+
 ### 3c. Set up your login profile
 
 The `.bashrc_local` file is sourced automatically at every login. Configure it so your environment is ready without manual steps each session.
