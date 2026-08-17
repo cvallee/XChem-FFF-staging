@@ -124,11 +124,11 @@ These steps are performed once on IRIS after your first successful login.
 IRIS uses a shared data filesystem. Create a personal working directory named `<INITIAL><LAST_NAME>` (e.g. `jsmith`) and link it to your home:
 
 ```bash
-mkdir /opt/xchem-fragalysis-2/WORKDIR
-ln -s /opt/xchem-fragalysis-2/WORKDIR $HOME/WORKDIR
+mkdir /opt/xchem-fragalysis-2/<WORKDIR>
+ln -s /opt/xchem-fragalysis-2/<WORKDIR> $HOME/<WORKDIR>
 ```
 
-Replace `WORKDIR` with your `<INITIAL><LAST_NAME>` throughout.
+Replace `<WORKDIR>` with your `<INITIAL><LAST_NAME>` throughout.
 
 ### 3b. Install Miniconda
 
@@ -158,12 +158,12 @@ On a Diamond machine, open the file:
 nano ~/.bashrc_local
 ```
 
-Add the following block, replacing `WORKDIR` with your own directory name:
+Add the following block, replacing `<WORKDIR>` with your own directory name:
 
 ```bash
 if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
     export DATA=/opt/xchem-fragalysis-2
-    export HOME2=$DATA/WORKDIR
+    export HOME2=$DATA/<WORKDIR>
     export LOGS=$HOME2/logs
     export BULK=$HOME2/BulkDock
 
