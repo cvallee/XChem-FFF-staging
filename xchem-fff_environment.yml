@@ -72,6 +72,7 @@ dependencies:
   - python_abi=3.10=8_cp310
   - readline=8.3=h853b02a_0
   - rocm-core=7.0.2=h54a6638_0
+  - setuptools=80.9.0=pyhff2d567_0
   - sqlite=3.53.1=hbc0de68_0
   - tk=8.6.13=noxft_h366c992_103
   - wheel=0.47.0=pyhd8ed1ab_0
@@ -82,6 +83,9 @@ dependencies:
   - xorg-libxdmcp=1.1.5=hb03c661_1
   - xorg-libxext=1.3.7=hb03c661_0
   - xorg-libxrender=0.9.12=hb9d3cd8_0
+  - xz=5.8.3=ha02ee65_0
+  - xz-gpl-tools=5.8.3=ha02ee65_0
+  - xz-tools=5.8.3=hb03c661_0
   - zstd=1.5.7=hb78ec9c_6
   - pip:
       - aizynthfinder==4.4.1
@@ -159,7 +163,6 @@ dependencies:
       - jupyterlab-widgets==3.0.16
       - kaleido==1.3.0
       - kiwisolver==1.5.0
-      - knitwork==0.1.0
       - lark==1.3.1
       - llvmlite==0.47.0
       - logistro==2.0.1
@@ -213,7 +216,6 @@ dependencies:
       - pydantic-core==2.46.4
       - pygments==2.20.0
       - pyparsing==3.3.2
-      - pyrosetta==2026.21+release.36f0c659eb
       - pyrosetta-installer==0.1.2
       - python-dateutil==2.9.0.post0
       - python-json-logger==4.1.0
@@ -271,6 +273,7 @@ dependencies:
       - xchem-fragalysis==1.0.0
       - xchem-fragmenstein==1.0.0
       - xchem-hippo==1.0.5
+      - xchem-knitwork==0.1.0
       - xchem-syndirella==1.0.5
       - xlrd==2.0.2
       - yattag==1.16.1
