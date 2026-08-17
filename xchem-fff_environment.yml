@@ -273,7 +273,6 @@ dependencies:
       - xchem-fragalysis==1.0.0
       - xchem-fragmenstein==1.0.0
       - xchem-hippo==1.0.5
-      - xchem-knitwork==1.0.2
       - xchem-syndirella==1.0.5
       - xlrd==2.0.2
       - yattag==1.16.1
