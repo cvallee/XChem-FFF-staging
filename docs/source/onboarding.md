@@ -144,7 +144,7 @@ source $CONDA_PREFIX/etc/profile.d/conda.sh
 conda info   # confirm base environment is active
 ```
 
-Create a conda environment (install each line at at time)
+Create a conda environment (install each line at a time)
 
 ```bash
 conda create --name py310 python=3.10 
