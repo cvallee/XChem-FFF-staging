@@ -1,2 +1,4 @@
 .ipynb_checkpoints
 docs/build
+attic/*
+.DS_Store

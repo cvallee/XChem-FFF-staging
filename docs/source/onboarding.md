@@ -1,8 +1,5 @@
 # Onboarding
 
-<<<<<<< Updated upstream
-This is a placeholder for Onboarding documentation
-=======
 This page guides new users through the steps required to access the IRIS compute cluster at Diamond Light Source (DLS) and run the FFF pipeline. At the end of this page you will be directed to the [Setup](setup.md) instructions to install the pipeline tools.
 
 ```{note}
@@ -198,4 +195,3 @@ source ~/.bashrc_local
 ## Next Steps
 
 You are now ready to install the FFF pipeline tools. Continue to the [Setup](setup.md) page.
->>>>>>> Stashed changes
