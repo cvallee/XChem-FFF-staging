@@ -12,8 +12,8 @@ A **FedID** is your Diamond Light Source federated identity — the username and
 
 1. Register an account on UAS at [https://uas.diamond.ac.uk](https://uas.diamond.ac.uk)
 Confirm you are named on an open or active proposal at [https://uas.diamond.ac.uk](https://uas.diamond.ac.uk). If your proposal is not active, you will not be able to authenticate against DLS systems. To be added to a proposal, contact the FFF-coordinator. 
-2. If you are a **Beamtime User** and do not yet have a FedID, contact the DLS User Office who will issue one as part of visit registration.
-3. If you are a **Visiting Scientist or Contractor** and need a password reset or account unlock, contact the Diamond IT Helpdesk.
+2. If you are a **Beamtime User** and do not yet have a FedID, contact the DLS User Office (USEROFFICE@diamond.ac.uk) who will issue one as part of visit registration.
+3. If you are a **Visiting Scientist or Contractor** and need a password reset or account unlock, contact the Diamond IT Helpdesk (ITSupport@diamond.ac.uk).
 
 ```{note}
 Reference documents covering IRIS access, the XChem GPFS data policy, remote connection setup, and SSH key configuration are available from the FFF-coordinator.
