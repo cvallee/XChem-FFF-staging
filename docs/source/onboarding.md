@@ -135,7 +135,7 @@ Replace `<WORKDIR>` with your `<INITIAL><LAST_NAME>` throughout.
 Set the conda installation prefix to your working directory to avoid filling your home quota:
 
 ```bash
-export CONDA_PREFIX=$HOME/WORKDIR/conda
+export CONDA_PREFIX=$HOME/<WORKDIR>/conda
 
 curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
 bash Miniforge3-Linux-x86_64.sh -p $CONDA_PREFIX -b
