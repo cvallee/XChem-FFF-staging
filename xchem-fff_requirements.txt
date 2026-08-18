@@ -187,4 +187,4 @@ xchem-syndirella==1.0.6
 xlrd==2.0.2
 yattag==1.16.1
 zipp==4.1.0
--e git+https://github.com/xchem/BulkDock.git@1.0.1#egg=BulkDock
+-e git+https://github.com/xchem/BulkDock.git@1.0.1#egg=xchem-bulkdock
