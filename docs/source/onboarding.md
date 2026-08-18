@@ -130,21 +130,7 @@ ln -s /opt/xchem-fragalysis-2/<WORKDIR> $HOME/<WORKDIR>
 
 Replace `<WORKDIR>` with your `<INITIAL><LAST_NAME>` throughout.
 
-### 3b. Install Miniconda
-
-Set the conda installation prefix to your working directory to avoid filling your home quota:
-
-```bash
-export CONDA_PREFIX=$HOME/<WORKDIR>/conda
-
-curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
-bash Miniforge3-Linux-x86_64.sh -p $CONDA_PREFIX -b
-source $CONDA_PREFIX/etc/profile.d/conda.sh
-
-conda info   # confirm base environment is active
-```
-
-### 3c. Set up your login profile
+### 3b. Set up your login profile
 
 The `.bashrc_local` file is sourced automatically at every login. Configure it so your environment is ready without manual steps each session.
 
@@ -164,13 +150,8 @@ Add the following block, replacing `<WORKDIR>` with your own directory name:
 if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
     export DATA=/opt/xchem-fragalysis-2
     export HOME2=$DATA/<WORKDIR>
+    export XCHEM_FFF=$DATA/XChem-FFF
     export LOGS=$HOME2/logs
-    export BULK=$HOME2/BulkDock
-
-    # Activate conda
-    export CONDA_PREFIX=$HOME2/conda
-    source $CONDA_PREFIX/etc/profile.d/conda.sh
-    conda activate py310
 fi
 ```
 
