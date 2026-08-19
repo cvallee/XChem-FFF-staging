@@ -1,5 +1,3 @@
---no-deps
-
 aizynthfinder==4.4.1
 annotated-doc==0.0.5
 annotated-types==0.7.0
