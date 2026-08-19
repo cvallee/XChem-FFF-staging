@@ -1,16 +1,17 @@
 # Setup
 
-This page describes how to set up the XChem-FFF pipeline tools on the IRIS compute cluster at Diamond Light Source (DLS).
+This page describes how to set up the XChem-FFF pipeline tools.
 
 ## Prerequisites
 
-Version 1.0 of the XChem-FFF design pipeline is intended for use on the IRIS compute cluster at DLS.
+Version 1.0 of the XChem-FFF design pipeline is intended for use on the IRIS compute cluster at DLS and on Squonk.
 
 Before continuing, make sure that you followed the [Onboarding](onboarding.md) instructions and have:
 
 - an active DLS FedID;
-- configured SSH access to IRIS; and
-- set up your IRIS profile.
+- configured SSH access to IRIS;
+- set up your IRIS profile; and
+- got access to Squonk
 
 ## Step 1 - Installing and setting up conda
 
@@ -113,7 +114,7 @@ This should ask you to set up a password for your notebook (this is optional, if
 Submit the Jupyter notebook job to SLURM:
 
 ```bash
-sbatch --job-name notebook --exclusive --partition main "$HOME2/slurm/notebook.sh" -p 9500 -d <WORKDIR> -cd conda -jc "$HOME2/jupyter_slurm" -ce py310 -ajc
+sbatch --job-name notebook --exclusive --partition main "$HOME2/slurm/notebook.sh" -p 9500 -d <WORKDIR> -cd conda -jc "$HOME2/jupyter_slurm" -ce xchem-fff -ajc
 ```
 
 ### 2c. Find the `NODELIST`
@@ -173,7 +174,11 @@ python -m bulkdock configure EMAIL_ADDRESS "YOUR EMAIL"
 python -m bulkdock create-directories
 ```
 
-## Step 4 — Configure GNINA (to update)
+## Step 4 - Configure a Squonk project
+
+Place holder for configuring a Squonk project
+
+## Configure GNINA (to keep until GNINA rescore is set in XChem-FFF)
 
 Clone the repository:
 

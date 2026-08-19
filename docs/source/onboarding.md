@@ -1,10 +1,12 @@
 # Onboarding
 
-This page guides new users through the steps required to access the IRIS compute cluster at Diamond Light Source (DLS) and run the FFF pipeline. At the end of this page you will be directed to the [Setup](setup.md) instructions to install the pipeline tools.
+This page guides new users through the steps required to access the IRIS compute cluster at Diamond Light Source (DLS) and to access Squonk in order to run the FFF pipeline. At the end of this page you will be directed to the [Setup](setup.md) instructions to install the pipeline tools.
 
 ```{note}
 If you run into problems during onboarding, the most common issues are access and password-related and depend on your user type. See the table below to find the right support route.
 ```
+
+---
 
 ## Step 1 — Generate a FedID
 
@@ -160,6 +162,12 @@ Load the changes in your current session:
 ```bash
 source ~/.bashrc_local
 ```
+
+---
+
+## Step 4 — Getting access to Squonk
+
+Placeholder for Squonk onboarding
 
 ---
 
