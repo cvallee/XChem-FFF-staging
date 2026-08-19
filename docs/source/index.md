@@ -40,11 +40,11 @@ design.md
 elaboration.md
 ```
 
-### Placement
+### Pose Generation
 
 ```{toctree}
 :maxdepth: 1
-placement.md
+poses.md
 ```
 
 ### Scoring
