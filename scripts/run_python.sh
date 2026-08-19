@@ -1,17 +1,17 @@
 #!/bin/bash
 
-#SBATCH --job-name=bash_w_conda
+#SBATCH --job-name=xchem-fff_python
 
 # default
-ROOT='bemery'
+WORKDIR=__YOUR_WORKDIR__
 CONDA_ENV='xchem-fff'
 ARGS=$@
 CONDA_DIR='conda'
 
 # setup root directories
 export DATA=/opt/xchem-fragalysis-2
-export HOME=/opt/xchem-fragalysis-2/$ROOT
-export HOME2=/opt/xchem-fragalysis-2/$ROOT
+export HOME=/opt/xchem-fragalysis-2/$WORKDIR
+export HOME2=/opt/xchem-fragalysis-2/$WORKDIR
 export CONDA_PREFIX=$HOME2/$CONDA_DIR
 
 echo $CONDA_PREFIX
@@ -22,11 +22,6 @@ export CONDA_ENVS_PATH=$CONDA_PREFIX/envs
 export CONDA_PKGS_DIRS=$CONDA_PREFIX/pkgs
 export MAMBA_ALWAYS_YES=yes
 export LD_LIBRARY_PATH=/usr/local/cuda/compat:$CONDA_PREFIX/lib:$LD_LIBRARY_PATH;
-
-export PYTHONPATH=$PYTHONPATH:$HOME2/MolParse:$HOME2/HIPPO:$HOME2:$HOME2/syndirella
-
-#export MANIFOLD_API_KEY="v1:IEgBrU-Vi4r1bBTGidyEnA"
-#export MANIFOLD_API_KEY="v1:m_HbJ9dNrwlMwjbJA4wscg"
 
 # splashscreen
 echo "************************************************************************"
@@ -51,6 +46,6 @@ echo 'python location...'
 which python
 
 echo 'running python...'
-bash $ARGS
+python $ARGS
 
 exit $?

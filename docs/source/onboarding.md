@@ -1,10 +1,12 @@
 # Onboarding
 
-This page guides new users through the steps required to access the IRIS compute cluster at Diamond Light Source (DLS) and run the FFF pipeline. At the end of this page you will be directed to the [Setup](setup.md) instructions to install the pipeline tools.
+This page guides new users through the steps required to access the IRIS compute cluster at Diamond Light Source (DLS) and to access Squonk in order to run the FFF pipeline. At the end of this page you will be directed to the [Setup](setup.md) instructions to install the pipeline tools.
 
 ```{note}
 If you run into problems during onboarding, the most common issues are access and password-related and depend on your user type. See the table below to find the right support route.
 ```
+
+---
 
 ## Step 1 — Generate a FedID
 
@@ -12,8 +14,8 @@ A **FedID** is your Diamond Light Source federated identity — the username and
 
 1. Register an account on UAS at [https://uas.diamond.ac.uk](https://uas.diamond.ac.uk)
 Confirm you are named on an open or active proposal at [https://uas.diamond.ac.uk](https://uas.diamond.ac.uk). If your proposal is not active, you will not be able to authenticate against DLS systems. To be added to a proposal, contact the FFF-coordinator. 
-2. If you are a **Beamtime User** and do not yet have a FedID, contact the DLS User Office who will issue one as part of visit registration.
-3. If you are a **Visiting Scientist or Contractor** and need a password reset or account unlock, contact the Diamond IT Helpdesk.
+2. If you are a **Beamtime User** and do not yet have a FedID, contact the DLS User Office (USEROFFICE@diamond.ac.uk) who will issue one as part of visit registration.
+3. If you are a **Visiting Scientist or Contractor** and need a password reset or account unlock, contact the Diamond IT Helpdesk (ITSupport@diamond.ac.uk).
 
 ```{note}
 Reference documents covering IRIS access, the XChem GPFS data policy, remote connection setup, and SSH key configuration are available from the FFF-coordinator.
@@ -124,37 +126,13 @@ These steps are performed once on IRIS after your first successful login.
 IRIS uses a shared data filesystem. Create a personal working directory named `<INITIAL><LAST_NAME>` (e.g. `jsmith`) and link it to your home:
 
 ```bash
-mkdir /opt/xchem-fragalysis-2/WORKDIR
-ln -s /opt/xchem-fragalysis-2/WORKDIR $HOME/WORKDIR
+mkdir /opt/xchem-fragalysis-2/<WORKDIR>
+ln -s /opt/xchem-fragalysis-2/<WORKDIR> $HOME/<WORKDIR>
 ```
 
-Replace `WORKDIR` with your `<INITIAL><LAST_NAME>` throughout.
+Replace `<WORKDIR>` with your `<INITIAL><LAST_NAME>` throughout.
 
-### 3b. Install Miniconda
-
-Set the conda installation prefix to your working directory to avoid filling your home quota:
-
-```bash
-export CONDA_PREFIX=$HOME/WORKDIR/conda
-
-curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
-bash Miniforge3-Linux-x86_64.sh -p $CONDA_PREFIX -b
-source $CONDA_PREFIX/etc/profile.d/conda.sh
-
-conda info   # confirm base environment is active
-```
-
-Create a conda environment (install each line at a time)
-
-```bash
-conda create --name py310 python=3.10 
-conda activate py310 
-pip install --no-cache-dir hippo-db typer black gemmi 
-conda install chemicalite=2024.05.1 pdbfixer git 
-python -c "import mrich; mrich.patch_rich_jupyter_margins()"
-```
-
-### 3c. Set up your login profile
+### 3b. Set up your login profile
 
 The `.bashrc_local` file is sourced automatically at every login. Configure it so your environment is ready without manual steps each session.
 
@@ -168,19 +146,14 @@ On a Diamond machine, open the file:
 nano ~/.bashrc_local
 ```
 
-Add the following block, replacing `WORKDIR` with your own directory name:
+Add the following block, replacing `<WORKDIR>` with your own directory name:
 
 ```bash
 if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
     export DATA=/opt/xchem-fragalysis-2
-    export HOME2=$DATA/WORKDIR
+    export HOME2=$DATA/<WORKDIR>
+    export XCHEM_FFF=$DATA/XChem-FFF
     export LOGS=$HOME2/logs
-    export BULK=$HOME2/BulkDock
-
-    # Activate conda
-    export CONDA_PREFIX=$HOME2/conda
-    source $CONDA_PREFIX/etc/profile.d/conda.sh
-    conda activate py310
 fi
 ```
 
@@ -189,6 +162,12 @@ Load the changes in your current session:
 ```bash
 source ~/.bashrc_local
 ```
+
+---
+
+## Step 4 — Getting access to Squonk
+
+Placeholder for Squonk onboarding
 
 ---
 
