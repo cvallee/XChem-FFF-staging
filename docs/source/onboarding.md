@@ -154,6 +154,7 @@ if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
     export HOME2=$DATA/<WORKDIR>
     export XCHEM_FFF=$DATA/XChem-FFF
     export LOGS=$HOME2/logs
+    export PIP_CACHE_DIR=$HOME2/.cache/pip
 fi
 ```
 

@@ -33,11 +33,16 @@ conda info   # confirm base environment is active
 
 Create a conda environment (execute each line at a time)
 
+```{note}
+When running the `pip chache dir` command, please make sure that the output look like `/opt/xchem-fragalysis-2/<WORKDIR>/.cache/pip`. If it doesn't, you might run into an error when running `pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt`. If that is the case, please contact your FFF coordinator.
+```
+
 ```bash
 cd $HOME2
-conda create -f $XCHEM_FFF/xchem-fff_environment.yaml
+conda create -f $XCHEM_FFF/xchem-fff_environment.yml
 conda activate xchem-fff
-pip install --no-deps $XCHEM_FFF/xchem-fff_requirements.txt"
+pip chache dir
+pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt
 ```
 
 ```{important}
@@ -54,6 +59,7 @@ if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
     export HOME2=$DATA/<WORKDIR>
     export XCHEM_FFF=$DATA/XChem-FFF
     export LOGS=$HOME2/logs
+    export PIP_CACHE_DIR=$HOME2/.cache/pip
 fi
 ```
 
@@ -65,6 +71,7 @@ if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
     export HOME2=$DATA/<WORKDIR>
     export XCHEM_FFF=$DATA/XChem-FFF
     export LOGS=$HOME2/logs
+    export PIP_CACHE_DIR=$HOME2/.cache/pip
     export BULK=$HOME2/src/xchem-bulkdock
 
     # Activate conda
