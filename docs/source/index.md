@@ -54,3 +54,9 @@ poses.md
 scoring.md
 ```
 
+### Contribution
+
+```{toctree}
+:maxdepth: 1
+contribution.md
+```
