@@ -20,7 +20,7 @@ If your software does not install properly within the `xchem-fff` environment, p
 
 ### 1b. Working with Squonk
 
-If your software isn't compatible with IRIS or the `xchem-fff` environment, you could also contribute to the pipeline by setting your software jobs on Squonk. Please follow the [Squonk Onboarding](onboarding.md#squonk-access) steps to get access to Squonk.
+If your software isn't compatible with IRIS or the `xchem-fff` environment, you could also contribute to the pipeline by setting your software jobs on Squonk. Please follow the :ref:`Squonk Onboarding <squonk-access>` steps to get access to Squonk.
 
 Similarly to Knitwork (see documentation [here](design.md)), you can launch a Notebook job to test installing and running your software. It will also be possible to create a specific Squonk job for your software, if you would like to do so, please talk to your FFF coordinator
 
