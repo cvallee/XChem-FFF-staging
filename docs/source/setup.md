@@ -185,44 +185,6 @@ python -m bulkdock create-directories
 
 Place holder for configuring a Squonk project
 
-## Configure GNINA (to keep until GNINA rescore is set in XChem-FFF)
-
-Clone the repository:
-
-```bash
-cd $HOME2
-git clone https://github.com/xchem/openbind-rescore.git
-```
-
-Change to the GNINA directory in the OpenBind Rescore repository:
-
-```bash
-cd "$HOME2/openbind-rescore/gnina"
-```
-
-Download GNINA v1.3.1:
-
-```bash
-wget https://github.com/gnina/gnina/releases/download/v1.3.1/gnina1.3.1
-mv gnina1.3.1 gnina
-chmod +x gnina
-```
-
-Pull the GNINA Singularity image:
-
-```bash
-singularity pull --disable-cache gnina_singularity.sif oras://ghcr.io/jnelen/gnina_singularity:v1
-```
-
-Return to the OpenBind Rescore directory and check that `gnina_rescore.py` can be run:
-
-```bash
-cd ..
-python gnina_rescore.py --help
-```
-
-If the setup has completed successfully, this command should display the available options for `gnina_rescore.py`.
-
 ## Next steps
 
 You are now ready to start your first FFF project. Continue to the [Design](design.md) page.
