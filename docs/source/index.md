@@ -12,6 +12,13 @@ Placeholder
 
 ## Documentation Pages
 
+### Onboarding
+
+```{toctree}
+:maxdepth: 1
+onboarding.md
+```
+
 ### Setup
 
 ```{toctree}
@@ -33,11 +40,11 @@ Scaffold_Design.md
 elaboration.md
 ```
 
-### Placement
+### Pose Generation
 
 ```{toctree}
 :maxdepth: 1
-placement.md
+poses.md
 ```
 
 ### Scoring

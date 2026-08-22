@@ -1,6 +1,11 @@
 .ipynb_checkpoints
 docs/build
+<<<<<<< HEAD
 temp/*
 a71ev2az/*
 A71EV2AZ_Cycle_01.ipynb
 .vscode
+=======
+attic/*
+.DS_Store
+>>>>>>> origin/main
