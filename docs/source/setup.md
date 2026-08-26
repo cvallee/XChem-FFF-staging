@@ -34,14 +34,14 @@ conda info   # confirm base environment is active
 Create a conda environment (execute each line at a time)
 
 ```{note}
-When running the `pip chache dir` command, please make sure that the output look like `/opt/xchem-fragalysis-2/<WORKDIR>/.cache/pip`. If it doesn't, you might run into an error when running `pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt`. If that is the case, please contact your FFF coordinator.
+When running the `pip cache dir` command, please make sure that the output look like `/opt/xchem-fragalysis-2/<WORKDIR>/.cache/pip`. If it doesn't, you might run into an error when running `pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt`. If that is the case, please contact your FFF coordinator.
 ```
 
 ```bash
 cd $HOME2
 conda create -f $XCHEM_FFF/xchem-fff_environment.yml
 conda activate xchem-fff
-pip chache dir
+pip cache dir
 pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt
 ```
 
