@@ -30,7 +30,7 @@ setup.md
 
 ```{toctree}
 :maxdepth: 1
-Scaffold_Design.md
+design.md
 ```
 
 ### Scaffold Elaboration
@@ -44,7 +44,7 @@ elaboration.md
 
 ```{toctree}
 :maxdepth: 1
-poses.md
+pose_generation.md
 ```
 
 ### Scoring

@@ -34,14 +34,14 @@ conda info   # confirm base environment is active
 Create a conda environment (execute each line at a time)
 
 ```{note}
-When running the `pip chache dir` command, please make sure that the output look like `/opt/xchem-fragalysis-2/<WORKDIR>/.cache/pip`. If it doesn't, you might run into an error when running `pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt`. If that is the case, please contact your FFF coordinator.
+When running the `pip cache dir` command, please make sure that the output look like `/opt/xchem-fragalysis-2/<WORKDIR>/.cache/pip`. If it doesn't, you might run into an error when running `pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt`. If that is the case, please contact your FFF coordinator.
 ```
 
 ```bash
 cd $HOME2
 conda create -f $XCHEM_FFF/xchem-fff_environment.yml
 conda activate xchem-fff
-pip chache dir
+pip cache dir
 pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt
 ```
 
@@ -170,7 +170,7 @@ Configure BulkDock with your working directory and Fragalysis submission details
 ```bash
 cd $HOME2
 cp $XCHEM_FFF/scripts/run_python.sh $HOME2/slurm/
-sed 's/__YOUR_WORKDIR__/<WORKDIR>/g' $HOME2/slurm/run_python.sh
+sed -i 's/__YOUR_WORKDIR__/<WORKDIR>/g' $HOME2/slurm/run_python.sh
 
 python -m bulkdock configure DIR_SLURM_LOGS "$HOME2/logs"
 python -m bulkdock configure FRAGALYSIS_EXPORT_SUBMITTER_NAME "YOUR NAME"
