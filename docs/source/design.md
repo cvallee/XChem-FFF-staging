@@ -114,27 +114,6 @@ python -m knitwork impure-merge
 
 Pure merges retain the fragment cores; impure merges allow small core changes. Copy the resulting `knitwork_pure_output` and `knitwork_impure_output` directories into the current cycle's `knitwork` directory on IRIS using `scp`.
 
-
-## 5. Place scaffolds and export poses
-
-Convert the Fragmenstein and Knitwork results into BulkDock CSV inputs using the commands shown in the notebook. The commands use the repository scripts rather than personal paths:
-
-```bash
-python "$HOME2/slurm/fragmenstein_to_bulkdock.py"
-python "$HOME2/slurm/knitwork_SDF_to_bulkdock.py" .
-```
-
-Copy the resulting CSV files to `$BULK/INPUTS` using the names derived from `target_name`, then run the three BulkDock placement commands from `$BULK`:
-
-```bash
-python -m bulkdock place <target_name> <target_name>_fragmenstein.csv --split 2000
-python -m bulkdock place <target_name> <target_name>_pure_knitwork.csv --split 2000
-python -m bulkdock place <target_name> <target_name>_impure_knitwork.csv --split 2000
-```
-
-The notebook defines `fragmenstein_tag`, `knitwork_pure_tag`, and `knitwork_impure_tag` from `target_name`. Use the following export cells without changing their paths: they write pose SDFs and reference archives to the appropriate `gnina/inputs` subdirectory and use the configured submitter details.
-
-
 ## Next steps
 
-For another design iteration on the same target, increment `cycle_number`, repeat this workflow, and keep the earlier cycle directory unchanged. For the next step, continue to the [Pose generation](poses.md) page.
+For another design iteration on the same target, increment `cycle_number`, repeat this workflow, and keep the earlier cycle directory unchanged. For the next step, continue to the [Pose generation](pose_generation.md) page.
