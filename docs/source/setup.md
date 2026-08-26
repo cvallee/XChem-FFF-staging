@@ -93,6 +93,8 @@ Load the changes in your current session:
 source ~/.bashrc_local
 ```
 
+(setup-step2)=
+
 ## Step 2 — Start a Jupyter notebook job
 
 The XChem-FFF workflow can be run from a Jupyter notebook on an IRIS compute node. The following steps configure and submit a Jupyter notebook job using SLURM.
@@ -170,7 +172,7 @@ Configure BulkDock with your working directory and Fragalysis submission details
 ```bash
 cd $HOME2
 cp $XCHEM_FFF/scripts/run_python.sh $HOME2/slurm/
-sed 's/__YOUR_WORKDIR__/<WORKDIR>/g' $HOME2/slurm/run_python.sh
+sed -i 's/__YOUR_WORKDIR__/<WORKDIR>/g' $HOME2/slurm/run_python.sh
 
 python -m bulkdock configure DIR_SLURM_LOGS "$HOME2/logs"
 python -m bulkdock configure FRAGALYSIS_EXPORT_SUBMITTER_NAME "YOUR NAME"
