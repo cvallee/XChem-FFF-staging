@@ -1,19 +1,19 @@
 # Scaffold Design
 
-This page describes the general XChem-FFF scaffold-design workflow implemented in `Desing_Template.ipynb`. For each target, create a target directory and perform each design iteration in a numbered cycle directory. The notebook uses the target and cycle variables to derive every path, tag, and output name so that the same workflow can be repeated for another target or cycle without editing hard-coded paths.
+This page describes the general XChem-FFF scaffold-design workflow implemented in `Design_Template.ipynb`. For each target, create a target directory and perform each design iteration in a numbered cycle directory. The notebook uses the target and cycle variables to derive every path, tag, and output name so that the same workflow can be repeated for another target or cycle without editing hard-coded paths.
 
-By the end of a cycle, you will have generated scaffold candidates with [Fragmenstein](https://fragmenstein.readthedocs.io/en/latest/) and [Knitwork](https://github.com/stephwills/FragmentKnitwork) --check the reference, placed them with BulkDock, and loaded the BulkDock poses into HIPPO.
+By the end of a cycle, you will have generated scaffold candidates with [Fragmenstein](https://fragmenstein.readthedocs.io/en/latest/) and/or [Knitwork](https://github.com/xchem/Knitwork), placed them with BulkDock, and loaded the BulkDock poses into HIPPO.
 
 ## Prerequisites
 
 Before continuing, make sure that you have:
 
 - completed the [Onboarding](onboarding.md) and [Setup](setup.md) pages;
-- a running Jupyter notebook session on IRIS (see [Setup - Step 2](setup.md));
+- a running Jupyter notebook session on IRIS (see {ref}`Start a Jupyter notebook job <setup-step2>`);
 - a copy of `Desing_Template.ipynb` open in that session.
 
 ```{note}
-Make a copy of `Desing_Template.ipynb` for each target (for example, `<target_name>_design_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
+Make a copy of `Design_Template.ipynb` for each target (for example, `<target_name>_design_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
 ```
 
 ## Key concepts
@@ -21,9 +21,9 @@ Make a copy of `Desing_Template.ipynb` for each target (for example, `<target_na
 A design cycle takes experimentally observed fragment hits and creates larger candidate scaffolds predicted to bind in the same pocket.
 
 - **[Fragalysis](https://updated-fragalysis-docs.readthedocs.io/en/docs-md-only/index.html)** stores experimental fragment hits. Use curator tags to identify the poses to merge.
-- **[HIPPO](https://hippo-docs.winokan.com/en/stable/)** records the target's compounds, poses, and reactions in a SQLite database. In the notebook, this database is represented by `animal`.
+- **[HIPPO](https://hippo-docs.winokan.com/en/stable/)** records the target's compounds, poses, and reactions in a SQLite database. In the notebook, this database is represented by the `animal` object.
 - **[Fragmenstein](https://fragmenstein.readthedocs.io/en/latest/)** merges overlapping fragment-hit poses and energy-minimises the resulting scaffold in the protein pocket.
-- **[Knitwork](https://github.com/stephwills/FragmentKnitwork)** generates complementary pure and impure scaffold merges from the same set of fragment hits.
+- **[Knitwork](https://github.com/xchem/Knitwork)** generates complementary pure and impure scaffold merges from the same set of fragment hits.
 
 ## 1. Download and initialise a target
 
