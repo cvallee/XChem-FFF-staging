@@ -166,6 +166,8 @@ source ~/.bashrc_local
 
 ---
 
+(squonk-access)=
+
 ## Step 4 — Getting access to Squonk
 
 Placeholder for Squonk onboarding
