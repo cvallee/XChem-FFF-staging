@@ -2,7 +2,7 @@
 
 This page describes the general XChem-FFF scaffold-design workflow implemented in `Desing_Template.ipynb`. For each target, create a target directory and perform each design iteration in a numbered cycle directory. The notebook uses the target and cycle variables to derive every path, tag, and output name so that the same workflow can be repeated for another target or cycle without editing hard-coded paths.
 
-By the end of a cycle, you will have generated scaffold candidates with [Fragmenstein](https://fragmenstein.readthedocs.io/en/latest/) and [Knitwork](https://github.com/stephwills/FragmentKnitwork), placed them with BulkDock, and loaded the BulkDock poses into HIPPO.
+By the end of a cycle, you will have generated scaffold candidates with [Fragmenstein](https://fragmenstein.readthedocs.io/en/latest/) and [Knitwork](https://github.com/stephwills/FragmentKnitwork) --check the ref, placed them with BulkDock, and loaded the BulkDock poses into HIPPO.
 
 ## Prerequisites
 
