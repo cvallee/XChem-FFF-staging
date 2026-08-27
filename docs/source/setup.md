@@ -95,7 +95,7 @@ source ~/.bashrc_local
 
 (setup-step2)=
 
-## Step 2 — Start a Jupyter notebook job
+## Step 2 — Start a Jupyter notebook job on IRIS
 
 The XChem-FFF workflow can be run from a Jupyter notebook on an IRIS compute node. The following steps configure and submit a Jupyter notebook job using SLURM.
 
@@ -183,9 +183,60 @@ python -m bulkdock configure EMAIL_ADDRESS "YOUR EMAIL"
 python -m bulkdock create-directories
 ```
 
-## Step 4 - Configure a Squonk project
+(setup-step4)=
 
-Place holder for configuring a Squonk project
+## Step 4 - Start a Jupyter notebook job on Squonk
+
+Before continuing, make sure you followed the {ref}`Squonk Onboarding <squonk-access>` steps to get access to Squonk.
+
+### 4a. Create a Project
+
+On [Squonk](https://data-manager-ui.xchem.diamond.ac.uk/data-manager-ui) home page, after signing in, you should see a box next to the gear icon with the following information:
+```
+Org: Default
+Unit:
+Project:
+```
+To create a project, click on "Settings" logo (the gear icon) next to the box, a panel should show up. If the Unit box (box on the top right) field is empty, write your username or use the dropdown menu to choose your username. Underneath the Unit box, you should see:
+* **Delete Unit** (with a bin icon with a cross on it)
+* **Edit Unit** (with a pen icon)
+* **Create Project** (with a file icon with a + sign on it)
+
+Click on "Create Project", a small panel should pop up. Write the project name (you can name it whatever you want) and choose the Tier using the dropdown menu (Bronze should be enough for Knitwork). You can choose whether you want to keep this Project private or not by ticking the private box. Once you have chosen the name, tier and privacy, click `CREATE`. If successful, you should see your project under `Project Stats`:
+```
+Project Stats
+    Name            Creator         Admins          Tier            Usage           Instances used      Storage used        Allowance           Actions
+    Search box      Search box      Search box      Search box      Search box      Search box          Search box          Search box          Search box
+O   <Project_Name>  <Username>      <Username>      <Selected_Tier> Green box       0                   0                   10000               3 icons
+```
+Click on the window icon with an arrow under "Actions" (the first icon) to open your Project in a new window. You will be redirected to a new window, and you will land into your `Project Data` tab. You can consider your Project Data like a file explorer, you can create new directories, upload and download files from there. The Project Data hone is also your starting directory when running a Notebook.
+
+### 4b. Running a Notebook job
+
+To start a Notebook, in your Squonk Project, click on th `Run` tab (next to Project Data). You should see all the applications and jobs available for your to run. To run Knitwork, you need to launch a `JupyterNotebook` app, click on `RUN` in the JupyterNotebook app (should be the first one). A panel should pop up. Fill the `Instance Name` (you can use any name), and click `RUN` (you can leave the other values to default). 
+
+Once started, you should see the `<Instance_name>` you have chosen underneath `RUN`, you can click on it. It should redirect your JupyterNotebook app in the `Results` tab (next to Run). To open it click `OPEN` (next to `TERMINATE`). If `OPEN` isn't available yet, it means that your job hasn't launched yet and is still queueing. If that is the case, wait a little bit and refresh the page, `OPEN` will appear eventually. In the `Results` tab, you should be able to see all the apps and jobs you are currently running under your Project. 
+
+(setup-knitwork)=
+
+### 4c. Setup Knitwork
+
+In the `Results` tab, open the JupyterNotebook app using the `OPEN` button. This will open a Jupyter Notebook in a new window. In the landing page of the Notebook, select `Terminal` under "Other", this should open a "Terminal 1" tab. Install knitwork by running:
+```bash
+git clone https://github.com/xchem/Knitwork.git
+cd Knitwork
+pip install -e .
+```
+Now configure Knitwork by running the following commands:
+```bash
+python -m knitwork configure GRAPH_LOCATION <graph_location>
+python -m knitwork configure GRAPH_USERNAME <graph_username>
+python -m knitwork configure GRAPH_PASSWORD <graph_password>
+```
+If you don't have the `<graph_location>`, `<graph_username>`, `<graph_password>`, contact your FFF coordinator.
+
+Please look at [Squonk documentations](https://data-manager-ui.xchem.diamond.ac.uk/data-manager-ui/docs/guided-tour) if you need more help and guidance or contact your FFF coordinator.
+
 
 ## Next steps
 

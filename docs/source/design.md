@@ -9,7 +9,8 @@ By the end of a cycle, you will have generated scaffold candidates with [Fragmen
 Before continuing, make sure that you have:
 
 - completed the [Onboarding](onboarding.md) and [Setup](setup.md) pages;
-- a running Jupyter notebook session on IRIS (see {ref}`Start a Jupyter notebook job <setup-step2>`);
+- a running Jupyter notebook session on IRIS (see {ref}`Start a Jupyter notebook job on IRIS <setup-step2>`);
+- a running Jupyter notebook job on Squonk (see {ref}`Start a Jupyter notebook job on Squonk <setup-step2>`);
 - a copy of `Desing_Template.ipynb` open in that session.
 
 ```{note}
@@ -105,14 +106,47 @@ Fragmenstein produces merged scaffolds using the fragment hits and reference pro
 
 ### Knitwork
 
-Knitwork must already be configured on Squonk. From the current cycle's Knitwork directory, run the following commands in the Squonk terminal:  (NEEDS MORE EXPLANATION. NOT SURE WHAT TO INCLUDE HERE)
+First you need to import `hits.sdf` to Squonk. Copy the file from IRIS to your local machine using the following command on your local terminal:
 ```bash
-python -m knitwork fragment ../hits.sdf
+scp -J <yourfedid>@ssh.diamond.ac.uk <yourfedid>@cepheus-slurm.diamond.ac.uk:/<path_to_hits_file>/hits.sdf /<local_path>/
+```
+Change `<yourfedid>`, `<path_to_hits_file>`, and `<local_path>` to your FedID, the full path where `hits.sdf` can be found (you can use `pwd` in the directory where `hits.sdf` is) and the local path on your machine where you want the file to be copied to, respectively.
+
+In your Squonk Project, go to the `Project Data` tab. Create a new directory corresponding to your current target by clicking on the folder icon with a + sign (next to the Search box). The new folder should appear, click on it. Then, upload your `hits.sdf` using the Upload icon (a cloud with an arrow, next to the create directory icon).
+
+Then, go to the `Results` tab and open your JupyterNotebook app. Make sure you have {ref}`set up Knitwork <setup-knitwork>` before continuing.
+
+Open a new Terminal, and make sure knitwork installation is still available:
+```bash
+pip freeze | grep Knitwork
+```
+You should see something starting like that
+```bash
+-e git+https://github.com/xchem/Knitwork.git
+```
+If you don't see the above line as an output of the `pip freeze | grep Knitwork` you will need to reinstall Knitwork:
+```bash
+cd Knitwork
+pip install -e .
+cd ../
+```
+```{note}
+If you have properly set up Knitwork, you do not need to reset it up again after the second pip install. Your configuration is saved into the config.json file
+```
+
+Now you should be able to run Knitwork. First, you need to create fragment pairs (change `<path_to_hits_file>` to the actual path where the hits.sdf is located):
+```bash
+cd <path_to_hits_file>
+python -m knitwork fragment hits.sdf
+```
+This will create a `fragment_output` subdirectory. The output from `knitwork fragment` will directly be used for merges.
+Now, run the following commands:
+```bash
 python -m knitwork pure-merge
 python -m knitwork impure-merge
 ```
 
-Pure merges retain the fragment cores; impure merges allow small core changes. Copy the resulting `knitwork_pure_output` and `knitwork_impure_output` directories into the current cycle's `knitwork` directory on IRIS using `scp`.
+Pure merges retain the fragment cores; impure merges allow small core changes based on similarity. Download the `.sdf` files from the resulting `knitwork_pure_output` and `knitwork_impure_output` directories (using the Download icon under Actions in Project Data where the files are stored) and copy them into the current cycle's `knitwork` directory on IRIS using `scp`.
 
 ## Next steps
 
