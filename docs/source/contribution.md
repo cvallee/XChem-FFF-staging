@@ -1,6 +1,6 @@
 # Contribution
 
-The FFF pipeline at XChem is an open source, we welcolme external contribution to enhance our current workflow from fragments to new designs. If you think that your software could be included in our pipeline please follow the steps below be reaching out to us.
+The FFF pipeline at XChem is an open source, we welcolme external contribution to enhance our current workflow from fragments to new designs. If you think that your software could be included in our pipeline please follow the steps below before reaching out to us.
 
 ## Step 1 - Onboarding and set up
 
