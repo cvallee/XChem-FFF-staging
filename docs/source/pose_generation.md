@@ -14,6 +14,11 @@ Before continuing, make sure that you have:
 Make a copy of `Pose_Generation_Template.ipynb` for each target (for example, `<target_name>_pose_generation_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
 ```
 
+To copy the template, run the following command on your IRIS terminal (change `<target_name>` to the corresponding Fragalysis target you are working on):
+```bash
+cp $XCHEM_FFF/templates/Pose_Generation_Template.ipynb $HOME2/XChem-FFF/<target_name>/<target_name>_pose_generation_workflow.ipynb
+```
+
 ## 1. Generate Bulkdock compatible inputs for placement jobs.
 
 We must first convert the outputs from Fragmenstein and Knitwork into BulkDock CSV inputs using the following commands in the terminal. 

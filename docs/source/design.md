@@ -10,11 +10,16 @@ Before continuing, make sure that you have:
 
 - completed the [Onboarding](onboarding.md) and [Setup](setup.md) pages;
 - a running Jupyter notebook session on IRIS (see {ref}`Start a Jupyter notebook job on IRIS <setup-step2>`);
+- a copy of `Design_Template.ipynb` open in that session.
 - a running Jupyter notebook job on Squonk (see {ref}`Start a Jupyter notebook job on Squonk <setup-step2>`);
-- a copy of `Desing_Template.ipynb` open in that session.
 
 ```{note}
 Make a copy of `Design_Template.ipynb` for each target (for example, `<target_name>_design_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
+```
+
+To copy the template, run the following command on your IRIS terminal (change `<target_name>` to the corresponding Fragalysis target you are working on):
+```bash
+cp $XCHEM_FFF/templates/Design_Template.ipynb $HOME2/XChem-FFF/<target_name>/<target_name>_design_workflow.ipynb
 ```
 
 ## Key concepts
@@ -46,6 +51,7 @@ All design work is kept below `$HOME2/XChem-FFF`. The notebook creates the follo
 ```text
 $HOME2/XChem-FFF/
 └── <target_name lowercase>/
+	├── 
 	├── aligned_files/
 	└── cycle_01/
 		├── hits.sdf
