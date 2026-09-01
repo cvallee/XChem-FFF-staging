@@ -6,6 +6,7 @@ from rich import print
 import pandas as pd
 from pathlib import Path
 import json
+from rdkit import Chem
 
 app = Typer()
 
@@ -19,50 +20,36 @@ def create_bulkdock_inputs(subdir: str):
     key = subdir.name
 
     dir_suffix_pure_triples = [
-        (subdir / "knitwork_pure_output", "_pure_merge.json", True),
-        (subdir / "knitwork_impure_output", "_prop_pharmfp_impure_merge.json", False),
+        (subdir / "knitwork_pure_output", "_pure_merges.sdf", True),
+        (subdir / "knitwork_impure_output", "_impure_merges.sdf", False),
     ]
 
     for out_dir, suffix, pure in dir_suffix_pure_triples:
-
+        
         all_merges = []
 
-        for json_file in Path(out_dir).glob(f"*{suffix}"):
+        for sdf in Path(out_dir).glob(f"*{suffix}"):
 
-            merge_name = json_file.name.removesuffix(suffix)
+            with Chem.SDMolSupplier(sdf) as supl:
+                for mol in supl:
+                    if mol is None:
+                        continue
 
-            hit_names = merge_name.split("-")
+                    smiles = mol.GetProp("merge_smiles")
+                    id_a = mol.GetProp("ID_A")
+                    id_b = mol.GetProp("ID_B")
 
-            if len(hit_names) == 2:
-                pass
+                    merge = {
+                        "smiles": smiles,
+                        "ID_A": id_a,
+                        "ID_B": id_b,
+                    }
 
-            elif len(hit_names) == 4:
-                hit_names = [f"{hit_names[0]}-{hit_names[1]}", f"{hit_names[2]}-{hit_names[3]}"]
-            elif len(hit_names) == 3:
-                if len(hit_names[2]) == 1:
-                    hit_names = [hit_names[0], f"{hit_names[1]}-{hit_names[2]}"]
-                elif len(hit_names[1]) == 1:
-                    hit_names = [f"{hit_names[0]}-{hit_names[1]}", hit_names[2]]
-                else:
-                    raise NotImplementedError(f"Wrong number of dashes in merge name: {merge_name}")
-            else:
-                raise NotImplementedError(f"Wrong number of dashes in merge name: {merge_name}")
+                    if mol.HasProp("ID_C"):
+                        merge["ID_C"] = mol.GetProp("ID_C")
 
-
-            data = json.load(open(json_file, "rt"))
-
-            for series in data.values():
-
-                mrich.var(f"{merge_name} #expansions:", len(series["expansions"]))
-
-                for i, (smiles, cmpd_ids) in enumerate(
-                    zip(series["expansions"], series["cmpd_ids"])
-                ):
-
-                    merge = dict(smiles=smiles)
-
-                    for j, hit in enumerate(hit_names):
-                        merge[j] = hit
+                    if mol.HasProp("ID_D"):
+                        merge["ID_D"] = mol.GetProp("ID_D")
 
                     all_merges.append(merge)
 
@@ -71,11 +58,11 @@ def create_bulkdock_inputs(subdir: str):
         mrich.success(f"{len(df)} total merges")
 
         if pure:
-            mrich.writing(f"{key}_knitwork_pure.csv")
-            df.to_csv(f"{key}_knitwork_pure.csv", index=False)
+            mrich.writing(f"knitwork_pure_bulkdock_input.csv")
+            df.to_csv(f"knitwork_pure_bulkdock_input.csv", index=False)
         else:
-            mrich.writing(f"{key}_knitwork_impure.csv")
-            df.to_csv(f"{key}_knitwork_impure.csv", index=False)
+            mrich.writing(f"knitwork_impure_bulkdock_input.csv")
+            df.to_csv(f"knitwork_impure_bulkdock_input.csv", index=False)
 
 
 if __name__ == "__main__":
