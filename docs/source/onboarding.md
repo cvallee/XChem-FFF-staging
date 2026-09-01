@@ -170,7 +170,11 @@ source ~/.bashrc_local
 
 ## Step 4 — Getting access to Squonk
 
-Placeholder for Squonk onboarding
+Currently, Knitwork is only available to run on Squonk. To get access to Squonk, you will need a username and a password to sign in with Keycloak. If you do not have your credentials for Squonk, contact your FFF coordinator.
+
+On [Squonk](https://data-manager-ui.xchem.diamond.ac.uk/data-manager-ui) home page, click on the little "Account" logo on the top right of the page (next to the gear icon), then click `LOGIN`. You will be redirected to a page, choose `Or click here to sign in with Keycloak...`. You will then be asked to write your username and password. Once completed, click `Sign In`.
+
+Once logged in, you will be able to create a project (further instructions in [Setup](setup.md)) and run Knitwork (further instruction in [Scaffold Design](design.md)).
 
 ---
 

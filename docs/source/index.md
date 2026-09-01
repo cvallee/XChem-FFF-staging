@@ -26,7 +26,7 @@ onboarding.md
 setup.md
 ```
 
-### Scaffold Design
+### Scaffold Design (Cycle 01)
 
 ```{toctree}
 :maxdepth: 1
@@ -44,7 +44,7 @@ elaboration.md
 
 ```{toctree}
 :maxdepth: 1
-poses.md
+pose_generation.md
 ```
 
 ### Scoring
