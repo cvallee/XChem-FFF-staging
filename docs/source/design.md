@@ -51,7 +51,7 @@ All design work is kept below `$HOME2/XChem-FFF`. The notebook creates the follo
 ```text
 $HOME2/XChem-FFF/
 └── <target_name lowercase>/
-	├── 
+	├── <target_name>_design_workflow.ipynb
 	├── aligned_files/
 	└── cycle_01/
 		├── hits.sdf
