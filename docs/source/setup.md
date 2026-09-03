@@ -20,6 +20,8 @@ Before continuing, make sure that you followed the [Onboarding](onboarding.md) i
 Set the conda installation prefix to your working directory to avoid filling your home quota:
 
 ```bash
+cd $HOME2
+
 export CONDA_PREFIX=$HOME2/<WORKDIR>/conda
 
 curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
@@ -38,11 +40,14 @@ When running the `pip cache dir` command, please make sure that the output look 
 ```
 
 ```bash
-cd $HOME2
 conda create -f $XCHEM_FFF/xchem-fff_environment.yml
 conda activate xchem-fff
 pip cache dir
 pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt
+```
+
+```{note}
+The complete installation of the `xchem-fff` with all its packages will take some time, please do not worry if this feels long, this is expected.
 ```
 
 ```{important}
@@ -63,7 +68,7 @@ if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
 fi
 ```
 
-Edit `.bashrc_local` to match the following:
+Edit `.bashrc_local` using `nano ~/.bashrc_local` to match the following:
 
 ```bash
 if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
@@ -81,10 +86,12 @@ if [ $(hostname) == 'cs05r-sc-cloud-30.diamond.ac.uk' ] ; then
 fi
 ```
 
-Now the `xchem-fff` environment will automatically be activated everytime you log into IRIS (you should see something like `(xchem-fff)[<yourfedid>@cs05r-sc-cloud-30 <WORKDIR>]` on the terminal).
-
 ```{important}
-As explained in the onboarding instructions: this edit must be done on a **Diamond machine** (e.g. a DLS Linux desktop or login node), not on IRIS. `nano` is not installed on IRIS. Because your home directory is shared across Diamond systems, the change will take effect when you next log in to IRIS.
+As explained in the Onboarding instructions: this edit must be done on a **Diamond machine** (e.g. a DLS Linux desktop or login node), not on IRIS. `nano` is not installed on IRIS. Because your home directory is shared across Diamond systems, the change will take effect when you next log in to IRIS.
+```
+
+```{note}
+Now the `xchem-fff` environment will automatically be activated everytime you ssh into IRIS (you should see something like `(xchem-fff)[<yourfedid>@cs05r-sc-cloud-30 ~]` on the terminal after login into IRIS).
 ```
 
 Load the changes in your current session:
@@ -99,19 +106,29 @@ source ~/.bashrc_local
 
 The XChem-FFF workflow can be run from a Jupyter notebook on an IRIS compute node. The following steps configure and submit a Jupyter notebook job using SLURM.
 
-### 2a. Configure Jupyter
+### 2a. Set up a `slurm` directory
 
-Create a `slurm` directory in your working directory:
+A few slurm scripts are necessary to run the full pipeline. Some of them can directly be used from the `$XCHEM_FFF` shared directory, but some of them need to be copy and edited in your `$HOME2` directory. Follow the commands below to create a `slurm` directory and set up your slurm scripts:
 
 ```bash
-cd "$HOME2"
+cd $HOME2
 mkdir slurm
+cp $XCHEM_FFF/scripts/notebook.sh $HOME/slurm/
+cp $XCHEM_FFF/scripts/run_python.sh $HOME2/slurm/
+sed -i 's/__YOUR_WORKDIR__/<WORKDIR>/g' $HOME2/slurm/run_python.sh # Change <WORKDIR> to your correct working directory (e.g. jsmith)
+cp $XCHEM_FFF/scripts/run_bash.sh $HOME2/slurm/
+sed -i 's/__YOUR_WORKDIR__/<WORKDIR>/g' $HOME2/slurm/run_bash.sh # Change <WORKDIR> to your correct working directory here as well
 ```
 
-Configure Jupyter. Replace `<WORKDIR>` with the name of your working directory.
+```{note}
+Do not touch the `__YOUR_WORKDIR__` string, this is what sed is looking for to change into you `<WORKDIR>`.
+```
+
+### 2b. Configure Jupyter
+
+To configure your Jupyter session, run the following commands on your IRIS termnal. Replace `<WORKDIR>` with the name of your working directory.
 
 ```bash
-cp $XCHEM_FFF/scripts/notebook.sh $HOME2/slurm/
 bash "$HOME2/slurm/notebook.sh" -p 9500 -d <WORKDIR> -cd conda -jc "$HOME2/jupyter_slurm" -ce xchem-fff -ajc -js
 ```
 ```{note}

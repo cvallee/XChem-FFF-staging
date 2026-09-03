@@ -12,16 +12,16 @@ app = Typer()
 
 
 @app.command()
-def create_bulkdock_inputs(subdir: str):
+def create_bulkdock_inputs(dir: str):
 
-    subdir = Path(subdir)
-    assert subdir.exists()
+    dir = Path(dir)
+    assert dir.exists()
 
-    key = subdir.name
+    key = dir.name
 
     dir_suffix_pure_triples = [
-        (subdir / "knitwork_pure_output", "_pure_merges.sdf", True),
-        (subdir / "knitwork_impure_output", "_impure_merges.sdf", False),
+        (dir / "knitwork_pure_output", "_pure_merges.sdf", True),
+        (dir / "knitwork_impure_output", "_impure_merges.sdf", False),
     ]
 
     for out_dir, suffix, pure in dir_suffix_pure_triples:
@@ -58,14 +58,16 @@ def create_bulkdock_inputs(subdir: str):
         mrich.success(f"{len(df)} total merges")
 
         if pure:
-            mrich.writing(f"knitwork_pure_bulkdock_input.csv")
-            df.to_csv(f"knitwork_pure_bulkdock_input.csv", index=False)
+            output = dir / f"{out_dir}/knitwork_pure_bulkdock_input.csv"
+            mrich.writing(output)
+            df.to_csv(output, index=False)
         else:
-            mrich.writing(f"knitwork_impure_bulkdock_input.csv")
-            df.to_csv(f"knitwork_impure_bulkdock_input.csv", index=False)
+            output = dir / f"{out_dir}/knitwork_impure_bulkdock_input.csv"
+            mrich.writing(output)
+            df.to_csv(output, index=False)
 
 
 if __name__ == "__main__":
     app()
 
-# python to_bulkdock.py iter1_frags
+# python knitwork_to_bulkdock.py knitwork_dir
