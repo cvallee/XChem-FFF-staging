@@ -1,6 +1,6 @@
 # Scaffold Design
 
-This page describes the general XChem-FFF scaffold-design workflow implemented in `Design_Template.ipynb`. For each target, create a target directory and perform each design iteration in a numbered cycle directory. The notebook uses the target and cycle variables to derive every path, tag, and output name so that the same workflow can be repeated for another target or cycle without editing hard-coded paths.
+This page describes the general XChem-FFF scaffold-design workflow implemented in `Design_Template.ipynb`. For each target, create a target directory and perform each design iteration in a numbered cycle directory. The notebook uses the target and cycle variables to derive every path, tag, and output name so that the same workflow can be repeated for another target or cycle without editing hard-coded paths. Please follow the instructions below and run the cell one by one in order to complete the workflow. If you run into any kind of issues, please contact your FFF coordinator.
 
 By the end of a cycle, you will have generated scaffold candidates with [Fragmenstein](https://fragmenstein.readthedocs.io/en/latest/) and/or [Knitwork](https://github.com/xchem/Knitwork), placed them with BulkDock, and loaded the BulkDock poses into HIPPO.
 
@@ -17,9 +17,11 @@ Before continuing, make sure that you have:
 Make a copy of `Design_Template.ipynb` for each target (for example, `<target_name>_design_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
 ```
 
-To copy the template, run the following command on your IRIS terminal (change `<target_name>` to the corresponding Fragalysis target you are working on):
+To copy the template, run the following command on your IRIS terminal:
 ```bash
-cp $XCHEM_FFF/templates/Design_Template.ipynb $HOME2/XChem-FFF/<target_name>/<target_name>_design_workflow.ipynb
+cd $HOME2
+mkdir XChem-FFF # Only needed if the directory XChem-FFF doesn't exist already
+cp $XCHEM_FFF/templates/Design_Template.ipynb $HOME2/XChem-FFF/design_workflow.ipynb
 ```
 
 ## Key concepts
@@ -33,7 +35,18 @@ A design cycle takes experimentally observed fragment hits and creates larger ca
 
 ## 1. Download and initialise a target
 
-In the first notebook cells, run the Fragalysis download widget and download the aligned files to `$BULK/TARGETS`. Set the following values in the configuration cell:
+After running the first few notebook cells, run the Fragalysis download widget and download the aligned files to `$BULK/TARGETS`. This step is interactive:
+- First make sure `production` in selected in front of `Stack`;
+- the `token` field is only required if you are planning to download a private target;
+- click on `Get target list`, new cells (`Target` and `Destination`) will appear;
+- choose the correct target you want to download, and copy paste the output of `print(bulk_targets_dir)` into the `Destination` field;
+- click `Download` (this should take a few minutes, then the aligned structures of your target will be available in `$BULK/TARGETS`).
+
+```{note}
+You can copy your token by login into [Fragalysis](https://fragalysis.diamond.ac.uk/viewer/react/landing/), click on `MENU` on the top left of the page, login with your FedID y(ou will be redirected to the Home page of Fragalysis again, but this time you will be able to see the private targets). The, click on `MENU` again, and click on `Get Token`, your token will automatically be copied to the clipboard. Paste the token in the corresponding field of the download widget to access private targets.
+```
+
+Set the following values in the configuration cell:
 
 ```python
 target_name = "Target name"
@@ -50,8 +63,8 @@ All design work is kept below `$HOME2/XChem-FFF`. The notebook creates the follo
 
 ```text
 $HOME2/XChem-FFF/
+├── design_workflow.ipynb
 └── <target_name lowercase>/
-	├── <target_name>_design_workflow.ipynb
 	├── aligned_files/
 	└── cycle_01/
 		├── hits.sdf
@@ -76,22 +89,14 @@ For a later design round for the same target, increment `cycle_number`; the note
 
 ## 2. Set up BulkDock and HIPPO
 
-BulkDock creates the HIPPO database once per target. In a terminal, run:
-
-```bash
-conda activate xchem-fff    ### xchem-fff environment will be used throughout this work
-cd "$BULK"
-python -m bulkdock setup <target_name>
-```
-
-This creates `$BULK/TARGETS/<target_name>/<target_name>.sqlite`. Back in the notebook, run the HIPPO setup cells. They deliberately use `bulk_target_dir` for this database, leaving `target_dir` reserved for the cycle work under `$HOME2/XChem-FFF`.
+Once your directories are organised and your target is downloaded, you need to setup the SQLite database for this target. BulkDock creates the HIPPO database once per target. Run BulkDock setup and initialise your `animal` (named used for the python object corresponding to your database for the target). This creates `$BULK/TARGETS/<target_name>/<target_name>.sqlite`. The `bulk_target_dir` is deliberately used for this database, leaving `target_dir` reserved for the cycle work under `$HOME2/XChem-FFF`.
 
 ## 3. Select fragment hits and prepare inputs
 
 In Fragalysis, tag the fragment-hit poses you want to merge. In the notebook:
 
 1. Run `animal.tags` to list available tags.
-2. Set `merge_tag` to the selected Fragalysis tag.
+2. Set `merge_tag` to the selected Fragalysis tag from the tags listed above (change `<your_tag>` to the selected tag).
 3. Run the fragment-input cells to write `hits.sdf` to the cycle directory.
 4. Run the reference-pose cell to copy a ligand-stripped reference protein into `fragmenstein_dir`.
 
@@ -101,18 +106,25 @@ The same `hits.sdf` is used by both Fragmenstein and Knitwork.
 
 ### Fragmenstein
 
-Run the path-printing notebook cell and use the reported `fragmenstein_dir` in a terminal:
+Fragmenstein requires more compute resources than the other commands run in the notebook. Therefore, the fragmenstein job will be submit in SLURM to run in the compute nodes. Follow the notebook cells, and excute directly the command there.
 
 ```bash
 cd <fragmenstein_dir>
-sbatch --job-name "fragmenstein" --mem 16000 "$HOME2/slurm/run_bash_with_xchem-fragmenstein_conda.sh" "$HOME2/slurm/run_fragmenstein.sh"
+sbatch --job-name "fragmenstein" --mem 16000 "$HOME2/slurm/run_bash.sh" "$XCHEM_FFF/scripts/run_fragmenstein.sh"
+```
+
+You can check if the run has been successfully launched with the `squeue -u $USER` command. You should see an output like:
+```text
+	JOBID	PARTITION		NAME		   USER	 ST		  TIME	NODES	NODELIST (REASON)
+	12345		 main	fragmens	<yourfedid>	  R		  0:05	    1	host-<ipaddress> # This is your fragmenstein job
+	12345		 main	notebook	<yourfedid>	  R	1-01:23:45	    1	host-<ipaddress> # This is your current notebook session
 ```
 
 Fragmenstein produces merged scaffolds using the fragment hits and reference protein placed in this directory.
 
 ### Knitwork
 
-First you need to import `hits.sdf` to Squonk. Copy the file from IRIS to your local machine using the following command on your local terminal:
+First you need to import `hits.sdf` to [Squonk](https://data-manager-ui.xchem.diamond.ac.uk/data-manager-ui). Copy the file from IRIS to your local machine using the following command on your local terminal:
 ```bash
 scp -J <yourfedid>@ssh.diamond.ac.uk <yourfedid>@cepheus-slurm.diamond.ac.uk:/<path_to_hits_file>/hits.sdf /<local_path>/
 ```
@@ -152,7 +164,7 @@ python -m knitwork pure-merge
 python -m knitwork impure-merge
 ```
 
-Pure merges retain the fragment cores; impure merges allow small core changes based on similarity. Download the `.sdf` files from the resulting `knitwork_pure_output` and `knitwork_impure_output` directories (using the Download icon under Actions in Project Data where the files are stored) and copy them into the current cycle's `knitwork` directory on IRIS using `scp`.
+Pure merges retain the fragment cores; impure merges allow small core changes based on similarity. Download `pure_merges.sdf` and `impure_merges.sdf` from the resulting `knitwork_output` directory (using the Download icon under Actions in Project Data where the files are stored) and copy them into the current cycle's `knitwork` directory on IRIS using `scp`.
 
 ## Next steps
 

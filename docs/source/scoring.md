@@ -14,9 +14,10 @@ Before continuing, make sure that you have:
 Make a copy of `Scoring_Visualisation_Template.ipynb` for each target (for example, `<target_name>_scoring_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
 ```
 
-To copy the template, run the following command on your IRIS terminal (change `<target_name>` to the corresponding Fragalysis target you are working on):
+To copy the template, run the following command on your IRIS terminal:
 ```bash
-cp $XCHEM_FFF/templates/Scoring_Visualision_Template.ipynb $HOME2/XChem-FFF/<target_name>/<target_name>_scoring_visualisation_workflow.ipynb
+cd $HOME2
+cp $XCHEM_FFF/templates/Scoring_Visualision_Template.ipynb $HOME2/XChem-FFF/scoring_visualisation_workflow.ipynb
 ```
 
 ## Key concepts

@@ -14,24 +14,19 @@ Before continuing, make sure that you have:
 Make a copy of `Pose_Generation_Template.ipynb` for each target (for example, `<target_name>_pose_generation_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
 ```
 
-To copy the template, run the following command on your IRIS terminal (change `<target_name>` to the corresponding Fragalysis target you are working on):
+To copy the template, run the following command on your IRIS terminal:
 ```bash
-cp $XCHEM_FFF/templates/Pose_Generation_Template.ipynb $HOME2/XChem-FFF/<target_name>/<target_name>_pose_generation_workflow.ipynb
+cd $HOME2
+cp $XCHEM_FFF/templates/Pose_Generation_Template.ipynb $HOME2/XChem-FFF/pose_generation_workflow.ipynb
 ```
 
 ## 1. Generate Bulkdock compatible inputs for placement jobs.
 
-We must first convert the outputs from Fragmenstein and Knitwork into BulkDock CSV inputs using the following commands in the terminal. 
-
-```bash
-cd fragmenstein_dir #this is the fragmenstein directory for your targets current cycle.
-python "$HOME2/slurm/fragmenstein_to_bulkdock.py"
-cp fragmenstein_bulkdock_input.csv $BULK/INPUTS/<target_name>_fragmenstein.csv #Replace <target_name>
-cd knitwork_dir #this is the knitwork directory for your targets current cycle.
-python "$HOME2/slurm/knitwork_SDF_to_bulkdock.py"
-cp knitwork_pure_bulkdock_input.csv $BULK/INPUTS/<target_name>_pure_knitwork.csv #Replace <target_name>
-cp knitwork_impure_bulkdock_input.csv $BULK/INPUTS/<target_name>_impure_knitwork.csv #Replace <target_name>
-```
+We must first convert the outputs from Fragmenstein and Knitwork into BulkDock CSV inputs. Run all the cells in the Jupyter Notebook in order, it will:
+- Generates the input for the Fragmenstein scaffolds
+- Copy them into the correct BulkDock input directory
+- Generates the inputs for the Knitwork scaffolds (both pure and impure merges)
+- Copy them into the correct BulkDock input directory
 
 ## 2. Run Bulkdock placement jobs.
 
