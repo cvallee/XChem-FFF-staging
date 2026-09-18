@@ -44,6 +44,7 @@ conda create -f $XCHEM_FFF/xchem-fff_environment.yml
 conda activate xchem-fff
 pip cache dir
 pip install --no-deps -r $XCHEM_FFF/xchem-fff_requirements.txt
+python -c 'import pyrosetta_installer; pyrosetta_installer.install_pyrosetta()'
 ```
 
 ```{note}

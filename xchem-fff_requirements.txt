@@ -126,7 +126,6 @@ pydantic_core==2.41.5
 Pygments==2.21.0
 pyparsing==3.3.2
 pyrosetta-installer==0.1.2
-pyrosetta @ https://west.rosettacommons.org/pyrosetta/release/release/PyRosetta4.Release.python310.ubuntu.wheel/pyrosetta-0-cp310-cp310-linux_x86_64.whl
 python-dateutil==2.9.0.post0
 python-json-logger==4.2.0
 python-louvain==0.16
@@ -179,7 +178,7 @@ Werkzeug==3.1.8
 widgetsnbextension==4.0.16
 xchem-fragalysis==1.0.0
 xchem-fragmenstein==1.0.0
-xchem-hippo==1.0.5
+xchem-hippo==1.0.6
 xchem-syndirella==1.0.6
 xlrd==2.0.2
 yattag==1.16.1
