@@ -52,4 +52,4 @@ Syndirella, by default, uses Fragmenstein to place the elaborated compounds. Onc
 
 ## Next steps
 
-If you followed all the final steps explained in [Pose Generation](pose_generation.md), and completed the sanity check and review. You are ready for the next steps which are: ordering, synthesis or further elaborations.
+If you followed all the final steps explained in [Pose Generation](pose_generation.md), and completed the sanity check and review on Fragalysis. You are ready for the next steps which are: ordering, synthesis or further elaborations.
