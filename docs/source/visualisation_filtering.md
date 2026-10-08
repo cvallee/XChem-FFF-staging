@@ -1,4 +1,4 @@
-# Scoring and Visualisation   (i think we should change the name of this page as #Selection or #triaging, pose generation step generates the poses. I only explain what each scores mean to rationalise the selection and do triaging)
+# Visualisation and Filtering
 
 Now that GNINA has minimised and re-scored the placed poses, we review those scores, select the poses worth progressing.
 
@@ -8,34 +8,46 @@ Before continuing, make sure that you have:
 
 - completed the [pose generation](pose_generation.md) page and imported the GNINA-minimised poses into HIPPO;
 - a running Jupyter notebook session on IRIS (see [Setup - Step 2](setup.md));
-- a copy of `Scoring_Visualisation_Template.ipynb` open in that session.
+- a copy of `Visualisation_Filtering_Template.ipynb` open in that session.
 
-```{note}
-Make a copy of `Scoring_Visualisation_Template.ipynb` for each target (for example, `<target_name>_scoring_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
+```{important}
+Make a copy of `Visualisation_Filtering_Template.ipynb`, do not edit the template inside the `$XCHEM_FFF` shared directory! It is important to keep the template unchanged so it is available for other users.
 ```
 
 To copy the template, run the following command on your IRIS terminal:
 ```bash
 cd $HOME2
-cp $XCHEM_FFF/templates/Scoring_Visualisation_Template.ipynb $HOME2/XChem-FFF/scoring_visualisation_workflow.ipynb
+cp $XCHEM_FFF/templates/Visualisation_Filtering_Template.ipynb $HOME2/XChem-FFF/filtering_workflow.ipynb
+```
+
+```{note}
+Target name and cycle IDs can be changed inside the notebook, but you are free to choose to make a copy of `Visualisation_Filtering_Template.ipynb` for each target (for example, `<target_name>_filtering_workflow.ipynb`) instead of editing the same notebook for each target you are working on.
 ```
 
 ## Key concepts
 
-### GNINA scores
+### HIPPO scores
+
+HIPPO stores score for each pose using the generic score names:
+
+#### Fragmenstein placement
+
+During placement, Fragmenstein assign the following two scores for each poses:
+
+- **`energy_score`** — an estimate of binding affinity. More negative/lower values indicate a stronger predicted binder. 
+- **`distance_score`** — the deviation between the placed pose of a scaffold compare to its inspirations. Small values mean the scaffold was placed in proximity with the inspirations original position; large values suggest the scaffold placement poorly reflect the original positions of the inspirations.
+
+#### GNINA rescore
 
 [GNINA](https://github.com/gnina/gnina) rescoring combines a physics-based docking score (from AutoDock Vina/Smina) with a convolutional neural network (CNN) evaluation of the 3D protein-ligand grid. The CNN produces three complementary values:
 
-- **`CNNscore`** — a binary-classification-style value (0–1) giving the probability that the pose is "correct", i.e. within 2 Å RMSD of the true binding mode. Higher is better.
+- **`CNNscore`** — a score value between 0 and 1 that gives the probability of a pose to be "correct", i.e. within 2 Å RMSD of the true binding mode. Higher is better.
 - **`CNNaffinity`** — a continuous prediction of binding affinity (a pK-like value, e.g. analogous to pKd/pKi). Higher is better.
 - **`CNN_VS`** — `CNNscore × CNNaffinity`. Because it multiplies pose-confidence by predicted affinity, it favours poses that are both geometrically plausible **and** predicted to bind strongly, and is a convenient single metric for ranking.
 
-In HIPPO these are stored on each pose using the generic score names:
-
-- **`energy_score`** — an estimate of binding affinity. More negative/lower or higher values indicate a stronger predicted binder depending on convention. 
-- **`distance_score`** — the deviation between the placed pose (from BulkDock) and the same pose after energy minimisation, typically derived from GNINA's minimised RMSD. Small values mean the original placement was already close to a low-energy geometry; large values suggest a strained or poor initial placement.
-
+```{note}
 `energy_score` and `distance_score` are the only score fields HIPPO stores in a dedicated, queryable column — `CNNscore`, `CNNaffinity`, and `CNN_VS` are not first-class HIPPO scores. They are, however, preserved on each pose's `metadata` dict (`pose.metadata["CNN_VS"]`) since `animal.load_sdf(...)` carries over every non-name SDF column, so `CNN_VS` remains available for triage alongside the two dedicated scores.
+```
 
 ### Method tags
 
@@ -43,7 +55,7 @@ Method tags (`fragmenstein`, `pure_knitwork`, `impure_knitwork`) identify which 
 
 ### Selection tag
 
-This workflow attributes a dedicated **selection tag** (for example `<target>_c01_selected_scaffolds`) to the poses chosen here. This tag and can be used to pull the same poses back out for further scoring/placement/docking/elaboration rounds, to export an SDF for other tools, or to export a SMILES list for compound ordering / synthesis. Downstream steps then simply query `animal.poses.get_by_tag(<selection_tag>)` (or filter `animal.compounds`/`animal.poses` by it).
+This workflow attributes a dedicated **selection tag** (for example `c01_selected_scaffolds`) to the poses chosen here. This tag and can be used to pull the same poses back out for further scoring/placement/docking/elaboration rounds, to export an SDF for other tools, or to export a SMILES list for compound ordering / synthesis. Downstream steps then simply query `animal.poses.get_by_tag(<selection_tag>)` (or filter `animal.compounds`/`animal.poses` by it).
 
 ## 1. Build a score table for the GNINA-minimised poses
 
@@ -71,7 +83,6 @@ Use the filtered index to build a `PoseSet` of the top-scoring poses with `anima
 
 Inspect the shortlisted poses before committing to a selection:
 
-- `top_poses.interactive()` opens a 3D overlay of the top-scoring poses in the binding site;
 - looping over the poses and calling `pose.draw()` gives a quick 2D depiction of each compound;
 - looping over the poses and calling `(pose + pose.inspirations).draw()` overlays each pose with the fragments that inspired it, so you can check how well the pose recapitulates the original fragment binding modes.
 
@@ -88,8 +99,6 @@ If you are interrupted partway through review, any unreviewed poses are excluded
 ```
 
 ### What to look for when accepting/reject poses
-
-(CEDRIC, I DO NOT THINK THIS IS WHAT LAUREN DID. SHE WAS TAKING THE TOP X% OF POSES, PLOTTING, TRIAGING ETC. BUT I THINK THIS IS SORT OF THE STEPS THAT SHOULD BE TAKEN WHEN ASSESSING DESIGNED COMPOUNDS. NOTEBOOK ALLOWS THE USER TO VISUALISE THE POSES AND ACCEPT/REJECT BASED ON THEIR JUDGEMENT ATM. MOCASSSIN AIM TO SOLVE QUITE A FEW OF THESE CRITERIA FOR V2. WARREN SUGGESTED I TAKE NOTE OF THESE, SO I DID. HAPPY TO CHAT FURTHER)
 
 There is no single automatic criterion for this step — use your chemical judgement, informed by the same considerations you would apply when reviewing docked poses manually. Useful things to check for each pose include:
 

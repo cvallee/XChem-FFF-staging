@@ -13,8 +13,8 @@ Before continuing, make sure that you have:
 - a copy of `Design_Template.ipynb` open in that session.
 - a running Jupyter notebook job on Squonk (see {ref}`Start a Jupyter notebook job on Squonk <setup-step2>`);
 
-```{note}
-Make a copy of `Design_Template.ipynb` for each target (for example, `<target_name>_design_workflow.ipynb`). Keep the template unchanged so it is available for the next target.
+```{important}
+Make a copy of `Design_Template.ipynb`, do not edit the template inside the `$XCHEM_FFF` shared directory! It is important to keep the template unchanged so it is available for other users.
 ```
 
 To copy the template, run the following command on your IRIS terminal:
@@ -24,13 +24,17 @@ mkdir XChem-FFF # Only needed if the directory XChem-FFF doesn't exist already
 cp $XCHEM_FFF/templates/Design_Template.ipynb $HOME2/XChem-FFF/design_workflow.ipynb
 ```
 
+```{note}
+Target name and cycle IDs can be changed inside the notebook, but you are free to choose to make a copy of `Design_Template.ipynb` for each target (for example, `<target_name>_design_workflow.ipynb`) instead of editing the same notebook for each target you are working on.
+```
+
 ## Key concepts
 
 A design cycle takes experimentally observed fragment hits and creates larger candidate scaffolds predicted to bind in the same pocket.
 
 - **[Fragalysis](https://updated-fragalysis-docs.readthedocs.io/en/docs-md-only/index.html)** stores experimental fragment hits. Use curator tags to identify the poses to merge.
-- **[HIPPO](https://hippo-docs.winokan.com/en/stable/)** records the target's compounds, poses, and reactions in a SQLite database. In the notebook, this database is represented by the `animal` object.
-- **[Fragmenstein](https://fragmenstein.readthedocs.io/en/latest/)** merges overlapping fragment-hit poses and energy-minimises the resulting scaffold in the protein pocket.
+- **[HIPPO](https://github.com/xchem/HIPPO)** records the target's compounds, poses, and reactions in a SQLite database. In the notebook, this database is represented by the `animal` object.
+- **[Fragmenstein](https://github.com/xchem/Fragmenstein)** merges overlapping fragment-hit poses and energy-minimises the resulting scaffold in the protein pocket.
 - **[Knitwork](https://github.com/xchem/Knitwork)** generates complementary pure and impure scaffold merges from the same set of fragment hits.
 
 ## 1. Download and initialise a target

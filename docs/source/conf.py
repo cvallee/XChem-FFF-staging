@@ -28,6 +28,7 @@ intersphinx_mapping = {
 intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'visualisation_filtering.md']
 
 # -- Options for HTML output
 
