@@ -6,10 +6,6 @@ The Fast Forward Fragments (FFF) pipeline is a pipeline used by XChem as part of
 This documentation is under active development.
 ```
 
-## FFF Overview
-
-Placeholder
-
 ## Documentation Pages
 
 ### Onboarding
