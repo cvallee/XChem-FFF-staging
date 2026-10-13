@@ -201,6 +201,16 @@ python -m bulkdock configure EMAIL_ADDRESS "YOUR EMAIL"
 python -m bulkdock create-directories
 ```
 
+Finally, in case you would be working with private targets, make sure the permissions of your BulkDock directory are set to you and group only.
+
+```bash
+chmod -R 770 $BULK
+```
+
+```{note}
+If you don't want anyone else but you to have access to the data, run `chmod -R 700 $BULK` instead.
+```
+
 (setup-step4)=
 
 ## Step 4 - Start a Jupyter notebook job on Squonk
