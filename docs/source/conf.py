@@ -28,10 +28,19 @@ intersphinx_mapping = {
 intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'visualisation_filtering.md']
 
 # -- Options for HTML output
+html_logo = "../images/FFF_logo_text.png"
+html_favicon = "../images/FFF_logo.png"
 
 html_theme = 'sphinx_rtd_theme'
+
+html_theme_options = {
+    "navigation_depth": -1,
+    "logo_only": True,
+    "prev_next_buttons_location": "both",
+}
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

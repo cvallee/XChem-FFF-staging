@@ -6,10 +6,6 @@ The Fast Forward Fragments (FFF) pipeline is a pipeline used by XChem as part of
 This documentation is under active development.
 ```
 
-## FFF Overview
-
-Placeholder
-
 ## Documentation Pages
 
 ### Onboarding
@@ -26,7 +22,7 @@ onboarding.md
 setup.md
 ```
 
-### Scaffold Design (Cycle 01)
+### Scaffold Design
 
 ```{toctree}
 :maxdepth: 1
@@ -45,13 +41,6 @@ elaboration.md
 ```{toctree}
 :maxdepth: 1
 pose_generation.md
-```
-
-### Scoring
-
-```{toctree}
-:maxdepth: 1
-scoring.md
 ```
 
 ### Contribution
